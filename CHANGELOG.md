@@ -1,4 +1,4 @@
 # Changelog
 
 ## 1.0.0
-- Initial release of the packaged Minimal++ theme.
+- Initial release of the packaged Vantablack theme.

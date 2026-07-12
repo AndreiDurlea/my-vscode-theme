@@ -1,6 +1,6 @@
-# Minimal++ Color Theme
+# Vantablack Color Theme
 
-My custom VS Code theme, packaged from Minimal++.
+My custom VS Code theme, packaged from Vantablack.
 
 ## Installation
 
@@ -8,7 +8,7 @@ My custom VS Code theme, packaged from Minimal++.
 1. Copy or link this folder into your VS Code extensions folder:
    - **Windows:** `C:\Users\<username>\.vscode\extensions\my-vscode-theme`
    - **macOS/Linux:** `~/.vscode/extensions/my-vscode-theme`
-2. Restart VS Code (or reload window) and select "Minimal Color Theme" from the Color Theme options.
+2. Restart VS Code (or reload window) and select "Vantablack" from the Color Theme options.
 
 ## Packaging
 
