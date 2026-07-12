@@ -17,7 +17,11 @@
         "uiTheme": "vs-dark",
         "path": "./themes/vantablack-color-theme.json"
       }
-    ]
+    ],
+    "configurationDefaults": {
+      "editor.fontFamily": "'JetBrains Mono', monospace",
+      "editor.bracketPairColorization.enabled": false
+    }
   },
   "scripts": {
     "package": "vsce package",
