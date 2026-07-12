@@ -1,0 +1,29 @@
+{
+  "name": "my-vscode-theme",
+  "displayName": "Minimal++",
+  "description": "My custom VS Code theme, packaged from Minimal++.",
+  "version": "1.0.0",
+  "publisher": "andreidurlea",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Minimal Color Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/minimal-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.19.0"
+  }
+}
