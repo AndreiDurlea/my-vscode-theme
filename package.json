@@ -19,7 +19,7 @@
       }
     ],
     "configurationDefaults": {
-      "editor.fontFamily": "'JetBrains Mono', monospace",
+      "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Consolas, Menlo, Monaco, 'Courier New', monospace",
       "editor.bracketPairColorization.enabled": false
     }
   },
