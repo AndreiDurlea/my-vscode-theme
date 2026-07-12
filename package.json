@@ -1,9 +1,13 @@
 {
-  "name": "my-vscode-theme",
-  "displayName": "Vantablack",
-  "description": "My custom VS Code theme, packaged from Vantablack.",
+  "name": "deutherium",
+  "displayName": "Deutherium",
+  "description": "My custom VS Code theme, packaged from Deutherium.",
   "version": "1.0.0",
   "publisher": "andreidurlea",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AndreiDurlea/my-vscode-theme.git"
+  },
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -13,9 +17,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Vantablack",
+        "label": "Deutherium",
         "uiTheme": "vs-dark",
-        "path": "./themes/vantablack-color-theme.json"
+        "path": "./themes/deutherium-color-theme.json"
       }
     ],
     "configurationDefaults": {

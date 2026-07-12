@@ -1,32 +1,47 @@
-# Vantablack Color Theme
+# Deutherium Color Theme
 
-My custom VS Code theme, packaged from Vantablack.
+A dark, high-contrast, distraction-free color theme for Visual Studio Code, built on Deutherium for ultimate readability.
+
+## Features & Packaged Settings
+
+Deutherium comes pre-configured with optimized default settings for a seamless development experience:
+- **Font Family:** Configured to use `JetBrains Mono` as the primary font with standard fallbacks.
+- **Bracket Pair Colorization:** Disabled by default to minimize visual noise.
+
+> [!NOTE]
+> To experience the intended typography, please download and install JetBrains Mono on your system:
+> - **[Download JetBrains Mono from Google Fonts](https://fonts.google.com/download?family=JetBrains%20Mono)** (Direct ZIP download)
+
+---
 
 ## Installation
 
-### For Local Development / Usage
-1. Copy or link this folder into your VS Code extensions folder:
-   - **Windows:** `C:\Users\<username>\.vscode\extensions\my-vscode-theme`
-   - **macOS/Linux:** `~/.vscode/extensions/my-vscode-theme`
-2. Restart VS Code (or reload window) and select "Vantablack" from the Color Theme options.
+You can install the Deutherium Color Theme using one of the following methods:
 
-### Settings & Font
-This theme includes default configurations for the editor:
-- **Font Family:** `JetBrains Mono` (please ensure you have JetBrains Mono installed on your operating system).
-- **Bracket Pair Colorization:** Disabled by default.
+### Option 1: Install from the VS Code Marketplace (Recommended)
+You can find and install the theme directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=andreidurlea.deutherium).
+Alternatively, search for **Deutherium** in the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`) in VS Code and click **Install**.
 
-## Packaging
+### Option 2: Install Locally (Manual Installation)
+1. Copy or link this repository folder into your VS Code extensions directory:
+   - **Windows:** `C:\Users\<Your-Username>\.vscode\extensions\my-vscode-theme`
+   - **macOS / Linux:** `~/.vscode/extensions/my-vscode-theme`
+2. Restart VS Code (or reload the window).
+3. Open the Color Theme picker (`Ctrl+K Ctrl+T` or `Cmd+K Cmd+T`) and select **Deutherium**.
 
-To package this theme into a `.vsix` installer file:
+---
 
-1. Install dependencies:
+## Local Development & Packaging
+
+To compile and package this extension into a `.vsix` installer file:
+
+1. Install development dependencies:
    ```bash
    npm install
    ```
-2. Run the packaging command:
+2. Build the package:
    ```bash
    npm run package
    ```
-   *Alternatively, run `npx @vscode/vsce package`*
-
-3. This will generate a file named `my-vscode-theme-1.0.0.vsix` which you can share or install directly in VS Code by dragging and dropping it, or via the Extensions view (Command Palette: `Extensions: Install from VSIX...`).
+   *(Or run `npx @vscode/vsce package` directly)*
+3. This creates a file named `deutherium-1.0.0.vsix` which you can share or install via the **Extensions: Install from VSIX...** option in VS Code's command palette.
