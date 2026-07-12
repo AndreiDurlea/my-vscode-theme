@@ -1,7 +1,7 @@
 {
   "name": "my-vscode-theme",
-  "displayName": "Minimal++",
-  "description": "My custom VS Code theme, packaged from Minimal++.",
+  "displayName": "Vantablack",
+  "description": "My custom VS Code theme, packaged from Vantablack.",
   "version": "1.0.0",
   "publisher": "andreidurlea",
   "engines": {
@@ -13,9 +13,9 @@
   "contributes": {
     "themes": [
       {
-        "label": "Minimal Color Theme",
+        "label": "Vantablack",
         "uiTheme": "vs-dark",
-        "path": "./themes/minimal-color-theme.json"
+        "path": "./themes/vantablack-color-theme.json"
       }
     ]
   },
