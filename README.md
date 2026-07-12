@@ -10,6 +10,11 @@ My custom VS Code theme, packaged from Vantablack.
    - On macOS and Linux: `~/.vscode/extensions/my-vscode-theme`
 2. Restart VS Code (or reload window) and select "Vantablack" from the Color Theme options.
 
+### Settings & Font
+This theme includes default configurations for the editor:
+- The font family is `JetBrains Mono`; install it on the operating system.
+- Bracket pair colorization is disabled by default.
+
 ## Packaging
 
 To package this theme into a `.vsix` installer file:
