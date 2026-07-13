@@ -1,6 +1,6 @@
 # Deutherium Color Theme
 
-A dark, high-contrast, distraction-free color theme for Visual Studio Code, built on Deutherium for ultimate readability.
+A dark, high-contrast, distraction-free color theme for Visual Studio Code. Inspired by themes on Jetbrains IDEs.
 
 ## Features & Packaged Settings
 
