@@ -6,3 +6,7 @@ node_modules/**
 README.md
 CHANGELOG.md
 tsconfig.json
+__CORECONTEXT_VERSION
+.corecontext/**
+.corecatalog/**
+*.env
