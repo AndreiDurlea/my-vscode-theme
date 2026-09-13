@@ -18,6 +18,25 @@ def get_modified_files(before: str, after: str):
         print(f'Warning: git diff failed: {e}', file=sys.stderr)
         return []
 
+def is_version_modified(before: str, after: str) -> bool:
+    if not before or before == '0' * 40:
+        cmd = ['git', 'diff-tree', '-p', after or 'HEAD', '--', 'package.json', '__CORECONTEXT_VERSION']
+    else:
+        cmd = ['git', 'diff', '-p', before, after, '--', 'package.json', '__CORECONTEXT_VERSION']
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        for line in res.stdout.splitlines():
+            if line.startswith('+') and not line.startswith('+++'):
+                if '"version":' in line:
+                    return True
+                # Direct version line in __CORECONTEXT_VERSION
+                stripped = line.lstrip('+').strip()
+                if re.match(r'^\d+\.\d+\.\d+', stripped):
+                    return True
+        return False
+    except Exception:
+        return False
+
 def set_github_output(key: str, value: str):
     output_file = os.environ.get('GITHUB_OUTPUT')
     if output_file:
@@ -48,8 +67,7 @@ def main():
     before = os.environ.get('GITHUB_EVENT_BEFORE', '')
     after = os.environ.get('GITHUB_SHA', 'HEAD')
 
-    modified_files = get_modified_files(before, after)
-    version_manually_changed = ('package.json' in modified_files) or ('__CORECONTEXT_VERSION' in modified_files)
+    version_manually_changed = is_version_modified(before, after)
 
     if version_manually_changed:
         print(f'[CoreCatalog Flow] Version manually specified in commit. Preserving: {current_ver}')
