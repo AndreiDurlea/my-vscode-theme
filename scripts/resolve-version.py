@@ -123,9 +123,15 @@ def main():
         if not any(matches_pattern(f, p) for p in ignore_patterns)
     ]
 
+    event_name = os.environ.get('GITHUB_EVENT_NAME', '')
     version_manually_changed = is_version_modified(before, after)
 
-    if version_manually_changed:
+    if event_name == 'workflow_dispatch':
+        print(f'[CoreCatalog Flow] Manual release dispatched. Releasing current version: {current_ver}')
+        new_ver = current_ver
+        auto_bumped = False
+        should_release = True
+    elif version_manually_changed:
         print(f'[CoreCatalog Flow] Version manually specified in commit. Preserving: {current_ver}')
         new_ver = current_ver
         auto_bumped = False
