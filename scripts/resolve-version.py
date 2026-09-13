@@ -3,10 +3,59 @@ import sys
 import os
 import re
 import json
+import fnmatch
 import subprocess
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
-def get_modified_files(before: str, after: str):
+DEFAULT_IGNORES = [
+    'README*',
+    'CHANGELOG*',
+    'LICENSE*',
+    'VERSION',
+    '__CORECONTEXT_VERSION',
+    '.corecontext/**',
+    '.corecatalogignore',
+    '.git*',
+    '.vscode/**',
+    '.vscodeignore',
+]
+
+def load_ignore_patterns() -> list[str]:
+    patterns = list(DEFAULT_IGNORES)
+    ignore_file = Path('.corecatalogignore')
+    if ignore_file.exists():
+        for line in ignore_file.read_text(encoding='utf-8').splitlines():
+            line = line.strip()
+            if line and not line.startswith('#'):
+                patterns.append(line)
+    return patterns
+
+def matches_pattern(file_path: str, pattern: str) -> bool:
+    path = PurePosixPath(file_path.replace('\\', '/'))
+    pat = pattern.replace('\\', '/').strip()
+    if not pat or pat.startswith('#'):
+        return False
+
+    if pat.endswith('/'):
+        pat = pat + '**'
+
+    path_str = str(path)
+    filename = path.name
+
+    if '/' not in pat:
+        if fnmatch.fnmatch(filename, pat) or fnmatch.fnmatch(path_str, pat):
+            return True
+
+    if fnmatch.fnmatch(path_str, pat):
+        return True
+    if fnmatch.fnmatch(path_str, f'**/{pat}'):
+        return True
+    if pat.endswith('**') and path_str.startswith(pat[:-2].rstrip('/')):
+        return True
+
+    return False
+
+def get_modified_files(before: str, after: str) -> list[str]:
     if not before or before == '0' * 40:
         cmd = ['git', 'diff-tree', '--no-commit-id', '--name-only', '-r', after or 'HEAD']
     else:
@@ -29,7 +78,6 @@ def is_version_modified(before: str, after: str) -> bool:
             if line.startswith('+') and not line.startswith('+++'):
                 if '"version":' in line:
                     return True
-                # Direct version line in __CORECONTEXT_VERSION
                 stripped = line.lstrip('+').strip()
                 if re.match(r'^\d+\.\d+\.\d+', stripped):
                     return True
@@ -67,14 +115,23 @@ def main():
     before = os.environ.get('GITHUB_EVENT_BEFORE', '')
     after = os.environ.get('GITHUB_SHA', 'HEAD')
 
+    modified_files = get_modified_files(before, after)
+    ignore_patterns = load_ignore_patterns()
+
+    functional_changes = [
+        f for f in modified_files
+        if not any(matches_pattern(f, p) for p in ignore_patterns)
+    ]
+
     version_manually_changed = is_version_modified(before, after)
 
     if version_manually_changed:
         print(f'[CoreCatalog Flow] Version manually specified in commit. Preserving: {current_ver}')
         new_ver = current_ver
         auto_bumped = False
-    else:
-        # Auto-bump patch version: major.minor.patch -> major.minor.(patch+1)
+        should_release = True
+    elif functional_changes:
+        print(f'[CoreCatalog Flow] Functional changes detected: {functional_changes}')
         match = re.match(r'^(\d+)\.(\d+)\.(\d+)(.*)$', current_ver)
         if match:
             major, minor, patch, suffix = match.groups()
@@ -85,15 +142,21 @@ def main():
 
         print(f'[CoreCatalog Flow] Auto-bumping version: {current_ver} -> {new_ver}')
         update_package_json(pkg_file, new_ver)
+        if core_file.exists():
+            core_file.write_text(f'{new_ver}\n', encoding='utf-8')
         auto_bumped = True
-
-    if core_file.exists() or auto_bumped:
-        core_file.write_text(f'{new_ver}\n', encoding='utf-8')
+        should_release = True
+    else:
+        print(f'[CoreCatalog Flow] Only ignored files modified ({modified_files}). Skipping release.')
+        new_ver = current_ver
+        auto_bumped = False
+        should_release = False
 
     tag = f'v{new_ver}'
     set_github_output('version', new_ver)
     set_github_output('tag', tag)
     set_github_output('auto_bumped', 'true' if auto_bumped else 'false')
+    set_github_output('should_release', 'true' if should_release else 'false')
 
 if __name__ == '__main__':
     main()

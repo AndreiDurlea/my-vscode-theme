@@ -37,7 +37,7 @@ jobs:
           python scripts/resolve-version.py
 
       - name: Commit Auto-Bumped Version
-        if: steps.version.outputs.auto_bumped == 'true'
+        if: steps.version.outputs.should_release == 'true' && steps.version.outputs.auto_bumped == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -46,10 +46,12 @@ jobs:
           git push origin ${{ github.ref_name }}
 
       - name: Package VSIX
+        if: steps.version.outputs.should_release == 'true'
         run: |
           npx -y @vscode/vsce package --no-git-tag-version
 
       - name: Publish GitHub Release
+        if: steps.version.outputs.should_release == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.version.outputs.tag }}
@@ -61,6 +63,7 @@ jobs:
           fi
 
       - name: Publish to Open VSX Registry
+        if: steps.version.outputs.should_release == 'true'
         env:
           OPEN_VSX_TOKEN: ${{ secrets.OPEN_VSX_TOKEN }}
         run: |
@@ -71,6 +74,7 @@ jobs:
           fi
 
       - name: Publish to VS Code Marketplace
+        if: steps.version.outputs.should_release == 'true'
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
