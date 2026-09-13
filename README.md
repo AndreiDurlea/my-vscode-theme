@@ -1,8 +1,8 @@
-# Deuterium Color Themes
+# Deuterium Color Themes ([400+ downloads](https://open-vsx.org/extension/andreidurlea/deutherium))
 
-[![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)](./__CORECONTEXT_VERSION)
-[![Marketplace](https://img.shields.io/badge/VS_Code_Marketplace-v1.1.1-purple.svg)](https://marketplace.visualstudio.com/items?itemName=andreidurlea.deutherium)
-[![Open VSX](https://img.shields.io/badge/Open_VSX-v1.1.1-blueviolet.svg)](https://open-vsx.org/extension/andreidurlea/deutherium)
+[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](./__CORECONTEXT_VERSION)
+[![Marketplace](https://img.shields.io/badge/VS_Code_Marketplace-v1.1.2-purple.svg)](https://marketplace.visualstudio.com/items?itemName=andreidurlea.deutherium)
+[![Open VSX](https://img.shields.io/badge/Open_VSX-v1.1.2-blueviolet.svg)](https://open-vsx.org/extension/andreidurlea/deutherium)
 
 Dark, high-contrast color themes for Visual Studio Code and Antigravity IDE modeled after JetBrains color schemes. Available in two distinct variants: **Deuterium** and **Deuterium Lite**.
 
@@ -39,4 +39,4 @@ Alternatively, search for `Deuterium` in the Extensions view (`Ctrl+Shift+X` / `
 2. Select **Deuterium** or **Deuterium Lite**.
 
 > [!TIP]
-> For the intended typography and rendering, the [JetBrains Mono](https://fonts.google.com/download?family=JetBrains%20Mono) font is recommended.
+> For the intended typography and rendering, the [JetBrains Mono](https://fonts.google.com/download?family=JetBrains%20Mono) font is recommended.
