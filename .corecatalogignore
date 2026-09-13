@@ -1,0 +1,21 @@
+# CoreCatalog Ignore Configuration
+# Commits altering only matching files will NOT trigger an automatic version bump or release.
+
+# Documentation and notes
+README*
+CHANGELOG*
+LICENSE*
+*.md
+
+# Version and metadata markers
+VERSION
+__CORECONTEXT_VERSION
+
+# Project instructions and workspace configuration
+.corecontext/**
+.corecatalogignore
+.git*
+.github/**
+scripts/**
+.vscode/**
+.vscodeignore

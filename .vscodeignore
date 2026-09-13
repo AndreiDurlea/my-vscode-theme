@@ -9,5 +9,6 @@ tsconfig.json
 __CORECONTEXT_VERSION
 .corecontext/**
 .corecatalog/**
+.corecatalogignore
 *.env
 scripts/**
