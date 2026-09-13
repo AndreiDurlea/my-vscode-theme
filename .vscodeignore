@@ -10,3 +10,4 @@ __CORECONTEXT_VERSION
 .corecontext/**
 .corecatalog/**
 *.env
+scripts/**

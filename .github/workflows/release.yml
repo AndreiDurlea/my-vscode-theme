@@ -16,39 +16,66 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      - name: Resolve Version (CoreCatalog SemVer)
+        id: version
+        env:
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          python scripts/resolve-version.py
+
+      - name: Commit Auto-Bumped Version
+        if: steps.version.outputs.auto_bumped == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json __CORECONTEXT_VERSION
+          git commit -m "Bump version to ${{ steps.version.outputs.version }} [skip ci]"
+          git push origin ${{ github.ref_name }}
+
       - name: Package VSIX
         run: |
           npx -y @vscode/vsce package --no-git-tag-version
-          VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "TAG=v$VERSION" >> $GITHUB_ENV
 
       - name: Publish GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" *.vsix --title "Deutherium $TAG" --notes "Release of Deutherium theme $TAG"
+            gh release create "$TAG" *.vsix --title "Deuterium $TAG" --notes "Release of Deuterium theme $TAG"
           else
             echo "Release $TAG already exists."
           fi
 
       - name: Publish to Open VSX Registry
-        if: env.OPEN_VSX_TOKEN != ''
         env:
           OPEN_VSX_TOKEN: ${{ secrets.OPEN_VSX_TOKEN }}
         run: |
-          npx -y ovsx publish *.vsix -p "$OPEN_VSX_TOKEN"
+          if [ -n "$OPEN_VSX_TOKEN" ]; then
+            npx -y ovsx publish *.vsix -p "$OPEN_VSX_TOKEN"
+          else
+            echo "Skipping Open VSX publish: OPEN_VSX_TOKEN secret is not set."
+          fi
 
       - name: Publish to VS Code Marketplace
-        if: env.VSCE_PAT != ''
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          npx -y @vscode/vsce publish -p "$VSCE_PAT"
+          if [ -n "$VSCE_PAT" ]; then
+            npx -y @vscode/vsce publish -p "$VSCE_PAT"
+          else
+            echo "Skipping VS Code Marketplace publish: VSCE_PAT secret is not set."
+          fi
