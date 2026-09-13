@@ -1,8 +1,6 @@
-# Deuterium Color Themes ([400+ downloads](https://open-vsx.org/extension/andreidurlea/deutherium))
+# Deuterium Color Themes
 
-[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](./__CORECONTEXT_VERSION)
-[![Marketplace](https://img.shields.io/badge/VS_Code_Marketplace-v1.1.2-purple.svg)](https://marketplace.visualstudio.com/items?itemName=andreidurlea.deutherium)
-[![Open VSX](https://img.shields.io/badge/Open_VSX-v1.1.2-blueviolet.svg)](https://open-vsx.org/extension/andreidurlea/deutherium)
+[![Open VSX Downloads](https://img.shields.io/open-vsx/dt/andreidurlea/deutherium?color=blueviolet)](https://open-vsx.org/extension/andreidurlea/deutherium)
 
 Dark, high-contrast color themes for Visual Studio Code and Antigravity IDE modeled after JetBrains color schemes. Available in two distinct variants: **Deuterium** and **Deuterium Lite**.
 
