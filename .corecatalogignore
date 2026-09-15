@@ -6,6 +6,8 @@ README*
 CHANGELOG*
 LICENSE*
 *.md
+images/**
+assets/**
 
 # Version and metadata markers
 VERSION
