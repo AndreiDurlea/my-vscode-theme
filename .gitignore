@@ -1,7 +1,7 @@
 node_modules/
+dist/
 *.vsix
 .DS_Store
-
 .clangd
 __pycache__/
 *.pyc

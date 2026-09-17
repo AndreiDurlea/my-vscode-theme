@@ -1,10 +1,11 @@
 .git/**
+.github/**
 .vscode/**
 .gitignore
 .vscodeignore
 node_modules/**
-README.md
-CHANGELOG.md
+src/**
+templates/**
 tsconfig.json
 __CORECONTEXT_VERSION
 .corecontext/**
@@ -12,3 +13,6 @@ __CORECONTEXT_VERSION
 .corecatalogignore
 *.env
 scripts/**
+AGENTS.md
+CLAUDE.md
+GEMINI.md

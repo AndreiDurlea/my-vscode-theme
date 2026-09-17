@@ -69,9 +69,9 @@ def get_modified_files(before: str, after: str) -> list[str]:
 
 def is_version_modified(before: str, after: str) -> bool:
     if not before or before == '0' * 40:
-        cmd = ['git', 'diff-tree', '-p', after or 'HEAD', '--', 'package.json', '__CORECONTEXT_VERSION']
+        cmd = ['git', 'diff-tree', '-p', after or 'HEAD', '--', 'package.json']
     else:
-        cmd = ['git', 'diff', '-p', before, after, '--', 'package.json', '__CORECONTEXT_VERSION']
+        cmd = ['git', 'diff', '-p', before, after, '--', 'package.json']
     try:
         res = subprocess.run(cmd, capture_output=True, text=True, check=True)
         for line in res.stdout.splitlines():
@@ -102,7 +102,6 @@ def update_package_json(pkg_file: Path, new_ver: str):
 
 def main():
     pkg_file = Path('package.json')
-    core_file = Path('__CORECONTEXT_VERSION')
 
     if not pkg_file.exists():
         print('Error: package.json not found', file=sys.stderr)
@@ -148,8 +147,6 @@ def main():
 
         print(f'[CoreCatalog Flow] Auto-bumping version: {current_ver} -> {new_ver}')
         update_package_json(pkg_file, new_ver)
-        if core_file.exists():
-            core_file.write_text(f'{new_ver}\n', encoding='utf-8')
         auto_bumped = True
         should_release = True
     else:
