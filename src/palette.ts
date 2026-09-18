@@ -8,17 +8,17 @@ export interface AccentOption {
 export const BASELINE_ACCENT = "#abf29d";
 
 export const ACCENT_PRESETS: Record<string, AccentOption> = {
-  limelight: {
-    id: "limelight",
-    name: "Limelight",
-    hex: "#abf29d",
-    description: "#abf29d - Light green accent"
-  },
   infrared: {
     id: "infrared",
     name: "Infrared",
     hex: "#f57385",
     description: "#f57385 - Light red / coral accent"
+  },
+  limelight: {
+    id: "limelight",
+    name: "Limelight",
+    hex: "#abf29d",
+    description: "#abf29d - Light green accent"
   },
   silverstone: {
     id: "silverstone",
