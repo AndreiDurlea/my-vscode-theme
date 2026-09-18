@@ -14,12 +14,15 @@ function getThemeVariant(): "deuterium" | "lite" {
 }
 
 function resolveAccentHex(config: vscode.WorkspaceConfiguration): { name: string; hex: string } {
-  const accentKey = config.get<string>("accentColor", "limelight");
+  const variant = getThemeVariant();
+  const defaultKey = variant === "lite" ? "limelight" : "infrared";
+  const accentKey = config.get<string>("accentColor", defaultKey);
   if (accentKey === "custom") {
-    const customHex = config.get<string>("customAccentColor", "#abf29d").trim();
-    return { name: `Custom (${customHex})`, hex: isValidHex(customHex) ? customHex : "#abf29d" };
+    const defaultHex = variant === "lite" ? ACCENT_PRESETS.limelight.hex : ACCENT_PRESETS.infrared.hex;
+    const customHex = config.get<string>("customAccentColor", defaultHex).trim();
+    return { name: `Custom (${customHex})`, hex: isValidHex(customHex) ? customHex : defaultHex };
   }
-  const preset = ACCENT_PRESETS[accentKey] || ACCENT_PRESETS.limelight;
+  const preset = ACCENT_PRESETS[accentKey] || ACCENT_PRESETS[defaultKey] || ACCENT_PRESETS.infrared;
   return { name: preset.name, hex: preset.hex };
 }
 
@@ -28,14 +31,15 @@ export function activate(context: vscode.ExtensionContext): void {
     "deuterium.selectAccentColor",
     async () => {
       const config = vscode.workspace.getConfiguration("deuterium");
-      const currentAccent = config.get<string>("accentColor", "limelight");
       const variant = getThemeVariant();
+      const defaultKey = variant === "lite" ? "limelight" : "infrared";
+      const currentAccent = config.get<string>("accentColor", defaultKey);
 
       const items: vscode.QuickPickItem[] = Object.values(ACCENT_PRESETS).map((preset) => {
         let label = preset.name;
-        if (variant === "lite" && preset.id === "infrared") {
+        if (variant === "lite" && preset.id === "limelight") {
           label = `${preset.name} (default)`;
-        } else if (variant === "deuterium" && preset.id === "limelight") {
+        } else if (variant === "deuterium" && preset.id === "infrared") {
           label = `${preset.name} (default)`;
         }
 
@@ -61,10 +65,10 @@ export function activate(context: vscode.ExtensionContext): void {
       if (selected.label.startsWith("Custom")) {
         const customInput = await vscode.window.showInputBox({
           prompt: "Enter a custom hex color code",
-          placeHolder: "#abf29d or #f57385",
+          placeHolder: "#f57385 or #abf29d",
           validateInput: (value) => {
             if (!isValidHex(value)) {
-              return "Please enter a valid hex color code (e.g. #abf29d, #f57385, #ff0055)";
+              return "Please enter a valid hex color code (e.g. #f57385, #abf29d, #ff0055)";
             }
             return null;
           }

@@ -71,17 +71,27 @@ jobs:
 
       - name: Publish to Open VSX Registry
         if: steps.version.outputs.should_release == 'true'
+        continue-on-error: true
         env:
           OPEN_VSX_TOKEN: ${{ secrets.OPEN_VSX_TOKEN }}
         run: |
           if [ -n "$OPEN_VSX_TOKEN" ]; then
-            npx -y ovsx publish *.vsix -p "$OPEN_VSX_TOKEN"
+            for i in 1 2 3; do
+              echo "Publishing to Open VSX (attempt $i)..."
+              if npx -y ovsx publish *.vsix -p "$OPEN_VSX_TOKEN"; then
+                echo "Successfully published to Open VSX."
+                break
+              fi
+              echo "Attempt $i failed. Retrying in 10s..."
+              sleep 10
+            done
           else
             echo "Skipping Open VSX publish: OPEN_VSX_TOKEN secret is not set."
           fi
 
       - name: Publish to VS Code Marketplace
         if: steps.version.outputs.should_release == 'true'
+        continue-on-error: true
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |

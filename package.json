@@ -2,7 +2,7 @@
   "name": "deutherium",
   "displayName": "Deuterium",
   "description": "Dark high-contrast themes modeled after JetBrains IDE color schemes, featuring Deuterium and Deuterium Lite with customizable accent colors.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "icon": "images/icon.png",
   "publisher": "andreidurlea",
   "main": "./dist/extension.js",
@@ -35,12 +35,12 @@
     "commands": [
       {
         "command": "deuterium.selectAccentColor",
-        "title": "Deuterium: Select Accent Color",
+        "title": "Select Accent Color",
         "category": "Deuterium"
       },
       {
         "command": "deuterium.reload",
-        "title": "Deuterium: Reload Window",
+        "title": "Reload Window",
         "category": "Deuterium"
       }
     ],
@@ -49,18 +49,18 @@
       "properties": {
         "deuterium.accentColor": {
           "type": "string",
-          "default": "limelight",
+          "default": "infrared",
           "enum": [
-            "limelight",
             "infrared",
+            "limelight",
             "silverstone",
             "papaya",
             "ultraviolet",
             "custom"
           ],
           "enumDescriptions": [
-            "Limelight (#abf29d - Light green accent, default for Deuterium)",
-            "Infrared (#f57385 - Light red / coral accent, default for Deuterium Lite)",
+            "Infrared (#f57385 - Light red / coral accent, default for Deuterium)",
+            "Limelight (#abf29d - Light green accent, default for Deuterium Lite)",
             "Silverstone (#e6ffff - Cool icy silverstone accent)",
             "Papaya (#ffc629 - Warm papaya golden-orange accent)",
             "Ultraviolet (#d3baff - Soft ultraviolet purple accent)",
@@ -70,9 +70,9 @@
         },
         "deuterium.customAccentColor": {
           "type": "string",
-          "default": "#abf29d",
+          "default": "#f57385",
           "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
-          "description": "Custom hex color code when accentColor is set to 'custom' (e.g. #abf29d or #f57385)."
+          "description": "Custom hex color code when accentColor is set to 'custom' (e.g. #f57385 or #abf29d)."
         }
       }
     },
