@@ -23,9 +23,24 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup CoreCatalog Deploy Key
+        if: env.CORECATALOG_DEPLOY_KEY != ''
+        uses: webfactory/ssh-agent@v0.9.0
+        env:
+          CORECATALOG_DEPLOY_KEY: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+        with:
+          ssh-private-key: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+
+      - name: Checkout CoreCatalog
+        uses: actions/checkout@v4
+        with:
+          repository: 'AndreiDurlea/corecatalog'
+          ssh-key: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+          path: '.corecatalog'
+
       - name: CoreCatalog Auto-Bump
         id: version
-        uses: AndreiDurlea/corecatalog/.github/actions/auto-bump@main
+        uses: ./.corecatalog/.github/actions/auto-bump
         with:
           source: 'json'
           file: 'package.json'
