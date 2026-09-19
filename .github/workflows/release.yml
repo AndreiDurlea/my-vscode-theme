@@ -18,24 +18,17 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Resolve Version (CoreCatalog SemVer)
+      - name: CoreCatalog Auto-Bump
         id: version
-        env:
-          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-        run: |
-          python scripts/resolve-version.py
+        uses: AndreiDurlea/corecatalog/.github/actions/auto-bump@main
+        with:
+          source: 'json'
+          file: 'package.json'
 
       - name: Commit Auto-Bumped Version
         if: steps.version.outputs.should_release == 'true' && steps.version.outputs.auto_bumped == 'true'
