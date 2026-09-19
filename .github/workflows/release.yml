@@ -18,24 +18,32 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Resolve Version (CoreCatalog SemVer)
-        id: version
+      - name: Setup CoreCatalog Deploy Key
+        if: env.CORECATALOG_DEPLOY_KEY != ''
+        uses: webfactory/ssh-agent@v0.9.0
         env:
-          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
-        run: |
-          python scripts/resolve-version.py
+          CORECATALOG_DEPLOY_KEY: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+        with:
+          ssh-private-key: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+
+      - name: Checkout CoreCatalog
+        uses: actions/checkout@v4
+        with:
+          repository: 'AndreiDurlea/corecatalog'
+          ssh-key: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
+          path: '.corecatalog'
+
+      - name: CoreCatalog Auto-Bump
+        id: version
+        uses: ./.corecatalog/.github/actions/auto-bump
+        with:
+          source: 'json'
+          file: 'package.json'
 
       - name: Commit Auto-Bumped Version
         if: steps.version.outputs.should_release == 'true' && steps.version.outputs.auto_bumped == 'true'
