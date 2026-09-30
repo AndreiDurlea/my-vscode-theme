@@ -38,73 +38,42 @@ jobs:
           ssh-key: ${{ secrets.CORECATALOG_DEPLOY_KEY }}
           path: '.corecatalog'
 
-      - name: CoreCatalog Auto-Bump
-        id: version
-        uses: ./.corecatalog/.github/actions/auto-bump
+      - name: CoreCatalog Unified Release
+        id: release
+        uses: ./.corecatalog/.github/actions/unified-release
         with:
           source: 'json'
           file: 'package.json'
-
-      - name: Commit Auto-Bumped Version
-        if: steps.version.outputs.should_release == 'true' && steps.version.outputs.auto_bumped == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json
-          git commit -m "Bump version to ${{ steps.version.outputs.version }} [skip ci]"
-          git push origin ${{ github.ref_name }}
-
-      - name: Install Dependencies & Build
-        if: steps.version.outputs.should_release == 'true'
-        run: |
-          npm ci
-          npm run build
-
-      - name: Package VSIX
-        if: steps.version.outputs.should_release == 'true'
-        run: |
-          npx -y @vscode/vsce package --no-git-tag-version
-
-      - name: Publish GitHub Release
-        if: steps.version.outputs.should_release == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ steps.version.outputs.tag }}
-        run: |
-          if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" *.vsix --title "Deuterium $TAG" --notes "Release of Deuterium theme $TAG"
-          else
-            echo "Release $TAG already exists."
-          fi
+          commit: 'true'
+          package-command: |
+            npm ci
+            npm run build
+            npx -y @vscode/vsce package --no-git-tag-version
+          title: 'Deuterium'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to Open VSX Registry
-        if: steps.version.outputs.should_release == 'true'
+        if: steps.release.outputs.should_release == 'true' && env.OPEN_VSX_TOKEN != ''
         continue-on-error: true
         env:
           OPEN_VSX_TOKEN: ${{ secrets.OPEN_VSX_TOKEN }}
+          VSIX: ${{ steps.release.outputs.artifact }}
         run: |
-          if [ -n "$OPEN_VSX_TOKEN" ]; then
-            for i in 1 2 3; do
-              echo "Publishing to Open VSX (attempt $i)..."
-              if npx -y ovsx publish *.vsix -p "$OPEN_VSX_TOKEN"; then
-                echo "Successfully published to Open VSX."
-                break
-              fi
-              echo "Attempt $i failed. Retrying in 10s..."
-              sleep 10
-            done
-          else
-            echo "Skipping Open VSX publish: OPEN_VSX_TOKEN secret is not set."
-          fi
+          for i in 1 2 3; do
+            echo "Publishing to Open VSX (attempt $i)..."
+            if npx -y ovsx publish "$VSIX" -p "$OPEN_VSX_TOKEN"; then
+              echo "Successfully published to Open VSX."
+              break
+            fi
+            echo "Attempt $i failed. Retrying in 10s..."
+            sleep 10
+          done
 
       - name: Publish to VS Code Marketplace
-        if: steps.version.outputs.should_release == 'true'
+        if: steps.release.outputs.should_release == 'true' && env.VSCE_PAT != ''
         continue-on-error: true
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          VSIX: ${{ steps.release.outputs.artifact }}
         run: |
-          if [ -n "$VSCE_PAT" ]; then
-            npx -y @vscode/vsce publish -p "$VSCE_PAT"
-          else
-            echo "Skipping VS Code Marketplace publish: VSCE_PAT secret is not set."
-          fi
+          npx -y @vscode/vsce publish -p "$VSCE_PAT" --packagePath "$VSIX"
