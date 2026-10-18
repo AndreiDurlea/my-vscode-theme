@@ -20,6 +20,12 @@ export const ACCENT_PRESETS: Record<string, AccentOption> = {
     hex: "#edf77a",
     description: "#edf77a - Lime accent (default for Deuterium Lite)"
   },
+  lush: {
+    id: "lush",
+    name: "Lush",
+    hex: "#9acd32",
+    description: "#9acd32 - Lush tmux lime accent"
+  },
   silverstone: {
     id: "silverstone",
     name: "Silverstone",

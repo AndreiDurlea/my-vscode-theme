@@ -53,6 +53,7 @@
           "enum": [
             "infrared",
             "limelight",
+            "lush",
             "silverstone",
             "papaya",
             "ultraviolet",
@@ -61,6 +62,7 @@
           "enumDescriptions": [
             "Infrared (#ff4e32 - Red accent, default for Deuterium)",
             "Limelight (#edf77a - Lime accent, default for Deuterium Lite)",
+            "Lush (#9acd32 - Lush tmux lime accent)",
             "Silverstone (#e6ffff - Cool icy silverstone accent)",
             "Papaya (#ffc629 - Warm papaya golden-orange accent)",
             "Ultraviolet (#d3baff - Soft ultraviolet purple accent)",
