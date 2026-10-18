@@ -12,25 +12,27 @@ export function generateThemes(extensionPath: string, accentHex: string): void {
     fs.mkdirSync(themesDir, { recursive: true });
   }
 
-  const customDeuterium = DEUTERIUM_TEMPLATE.replace(
-    new RegExp(baselineLower, "gi"),
-    normHex
-  );
+  for (const [file, templateStr] of [
+    ["deuterium-color-theme.json", DEUTERIUM_TEMPLATE],
+    ["deuterium-lite-color-theme.json", DEUTERIUM_LITE_TEMPLATE]
+  ] as const) {
+    try {
+      const baseStr = templateStr.replace(new RegExp(baselineLower, "gi"), normHex);
+      const themeObj = JSON.parse(baseStr);
+      themeObj.colors = themeObj.colors || {};
 
-  const customDeuteriumLite = DEUTERIUM_LITE_TEMPLATE.replace(
-    new RegExp(baselineLower, "gi"),
-    normHex
-  );
+      // Update the bottom bar and button coloring
+      themeObj.colors["statusBar.noFolderBackground"] = normHex;
+      themeObj.colors["statusBar.background"] = normHex;
+      themeObj.colors["button.background"] = normHex;
+      themeObj.colors["button.hoverBackground"] = normHex;
+      themeObj.colors["progressBar.background"] = normHex;
 
-  fs.writeFileSync(
-    path.join(themesDir, "deuterium-color-theme.json"),
-    customDeuterium,
-    "utf8"
-  );
-
-  fs.writeFileSync(
-    path.join(themesDir, "deuterium-lite-color-theme.json"),
-    customDeuteriumLite,
-    "utf8"
-  );
+      fs.writeFileSync(
+        path.join(themesDir, file),
+        JSON.stringify(themeObj, null, 2),
+        "utf8"
+      );
+    } catch (_) {}
+  }
 }

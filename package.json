@@ -59,8 +59,8 @@
             "custom"
           ],
           "enumDescriptions": [
-            "Infrared (#f57385 - Light red / coral accent, default for Deuterium)",
-            "Limelight (#abf29d - Light green accent, default for Deuterium Lite)",
+            "Infrared (#ff4e32 - Red accent, default for Deuterium)",
+            "Limelight (#edf77a - Lime accent, default for Deuterium Lite)",
             "Silverstone (#e6ffff - Cool icy silverstone accent)",
             "Papaya (#ffc629 - Warm papaya golden-orange accent)",
             "Ultraviolet (#d3baff - Soft ultraviolet purple accent)",
@@ -70,9 +70,9 @@
         },
         "deuterium.customAccentColor": {
           "type": "string",
-          "default": "#f57385",
+          "default": "#ff4e32",
           "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$",
-          "description": "Custom hex color code when accentColor is set to 'custom' (e.g. #f57385 or #abf29d)."
+          "description": "Custom hex color code when accentColor is set to 'custom' (e.g. #ff4e32 or #edf77a)."
         }
       }
     },
