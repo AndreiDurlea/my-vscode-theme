@@ -11,14 +11,14 @@ export const ACCENT_PRESETS: Record<string, AccentOption> = {
   infrared: {
     id: "infrared",
     name: "Infrared",
-    hex: "#f57385",
-    description: "#f57385 - Light red / coral accent"
+    hex: "#ff4e32",
+    description: "#ff4e32 - Red accent (default for Deuterium)"
   },
   limelight: {
     id: "limelight",
     name: "Limelight",
-    hex: "#abf29d",
-    description: "#abf29d - Light green accent"
+    hex: "#edf77a",
+    description: "#edf77a - Lime accent (default for Deuterium Lite)"
   },
   silverstone: {
     id: "silverstone",
