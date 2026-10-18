@@ -2,7 +2,7 @@
   "name": "deutherium",
   "displayName": "Deuterium",
   "description": "Dark high-contrast themes modeled after JetBrains IDE color schemes, featuring Deuterium and Deuterium Lite with customizable accent colors.",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "icon": "images/icon.png",
   "publisher": "andreidurlea",
   "main": "./dist/extension.js",
