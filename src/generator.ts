@@ -1,11 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
-import { BASELINE_ACCENT } from "./palette";
 import { DEUTERIUM_TEMPLATE, DEUTERIUM_LITE_TEMPLATE } from "./templates_data";
 
 export function generateThemes(extensionPath: string, accentHex: string): void {
   const normHex = accentHex.toLowerCase();
-  const baselineLower = BASELINE_ACCENT.toLowerCase();
 
   const themesDir = path.join(extensionPath, "themes");
   if (!fs.existsSync(themesDir)) {
@@ -17,8 +15,7 @@ export function generateThemes(extensionPath: string, accentHex: string): void {
     ["deuterium-lite-color-theme.json", DEUTERIUM_LITE_TEMPLATE]
   ] as const) {
     try {
-      const baseStr = templateStr.replace(new RegExp(baselineLower, "gi"), normHex);
-      const themeObj = JSON.parse(baseStr);
+      const themeObj = JSON.parse(templateStr);
       themeObj.colors = themeObj.colors || {};
 
       themeObj.colors["statusBar.noFolderBackground"] = normHex;

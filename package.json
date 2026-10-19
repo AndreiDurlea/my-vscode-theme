@@ -2,7 +2,7 @@
   "name": "deutherium",
   "displayName": "Deuterium",
   "description": "Dark high-contrast themes modeled after JetBrains IDE color schemes, featuring Deuterium and Deuterium Lite with customizable accent colors.",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "icon": "images/icon.png",
   "publisher": "andreidurlea",
   "main": "./dist/extension.js",
@@ -68,7 +68,7 @@
             "Ultraviolet (#d3baff - Soft ultraviolet purple accent)",
             "Custom Hex Color"
           ],
-          "description": "Accent color for Deuterium syntax highlighting and highlights."
+          "description": "Accent color for Deuterium status bar, buttons, and UI highlights."
         },
         "deuterium.customAccentColor": {
           "type": "string",
