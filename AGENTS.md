@@ -28,4 +28,25 @@ Follow the `technical-documentation` skill and the specification in `Coding/seri
 6. Keep paragraphs short and focused (maximum 1â€“3 sentences per paragraph). Explain architectures with clear prose and structured lists rather than unreadable ASCII box diagrams.
 7. Provide parameter tables with explicit types and defaults, exact function signatures, and minimal working code examples.
 
+### /.corecontext/user/AGENTS.md
+# /.corecontext/user
+This folder holds .md context files about the project that DON'T go on the remote, specifc to this user's machine and preferences
+
+### /.corecontext/user/comments.md
+When writing code, add comments only to explain hidden design decisions that are not immediately apparent from the symbol names. Code should be readable without any comments.
+
+Exception: Simple comments explaining magic numbers, console key codes (e.g., `// Up arrow`), or platform-specific hex/integer constants are allowed.
+
+### /.corecontext/user/commit.md
+When commiting, use 3-4 words max for the message. Always try to ammend the latest commit(s) if you previously commited a task the user wanted, but then changes needed to be made to that same task/feature. When something new is started, it can become a new, atomic, commit.
+
+### /.corecontext/user/docs.md
+When writing or updating documentation, READMEs, and technical guides, strictly follow the standard in Coding/serious/writing/documentation.md.
+Root README.md files must not include frontmatter. Badges should only be used where genuinely relevant (such as software libraries or CLI tools); never add badges to personal websites, web apps, CVs/resumes, writing guides, or non-tool repositories.
+Convey maximum functional density using minimum words. Omit filler phrases, conversational preamble, and marketing fluff.
+Don't use nonfactual adjectives or adverbs in the text.
+Use direct imperative voice, quantify metrics, and state types, units, and error modes explicitly.
+Do not prefix sentences, bullet points, or numbered lists with bold pseudo-labels followed by colons (such as **Word**: Explanation or 1. **Step**: Details). Summarizing a thought into an artificial bold keyword is nonfactual and breaks natural sentence flow; write direct, complete, factual sentences.
+Keep paragraphs short, focused, and readable (maximum 2–3 sentences per paragraph). Never write dense walls of text. Decompose execution modes, lifecycles, and multi-step workflows into distinct, readable steps. Avoid unreadable ASCII box diagrams; explain architectures normally with clear prose and structured lists.
+
 <!-- CORECONTEXT:AUTOGEN_END -->
