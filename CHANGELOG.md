@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+- Replace the syntax colors with Lotus Dark (Classic) roles (MIT, Brian Lai), matching the Deuterium JetBrains plugin: `#ff6188` keywords, `#33f3ff` classes, `#a9dc76` function declarations, `#99ffae` calls, `#ffcfa8` parameters.
+- Color declarations, calls, parameters, interfaces and type parameters separately through semantic tokens.
+- Set `editor.foreground` to `#fcfcfa`.
+
 ## 1.2.5
 - Fix: Ensure editor function and syntax highlighting colors remain untouched when selecting accent colors.
 - Confine accent color application strictly to UI elements (status bar, buttons, and progress bar).
