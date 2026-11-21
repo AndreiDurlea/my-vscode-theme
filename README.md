@@ -61,7 +61,7 @@ Token colors come from Lotus Dark (Classic) by Brian Lai, used under the MIT Lic
 | Punctuation | `#939293` | `punctuation`, `meta.brace` |
 | Comment | `#727072` italic | `comment` |
 
-Tokens without a scope use `editor.foreground` (`#fcfcfa`). In Kotlin this applies to `:`, `.` and brackets, which the Kotlin grammar leaves unscoped.
+Tokens without a scope use `editor.foreground`, set to the punctuation color `#939293`. In Kotlin this covers `:`, `.` and brackets, which the Kotlin grammar leaves unscoped.
 
 ---
 
