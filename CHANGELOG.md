@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.3
+- Color keywords, tags and type annotation arrows with the upright Deuterium red `#f57385` instead of the italic Lotus `#ff6188`, matching the Deuterium JetBrains plugin.
+
 ## 1.3.2
 - Link the Deuterium plugin on the JetBrains Marketplace from the README.
 

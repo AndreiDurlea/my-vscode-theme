@@ -2,7 +2,7 @@
 
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/andreidurlea/deutherium.svg?color=white)](https://open-vsx.org/extension/andreidurlea/deutherium)
 
-Dark color themes for Visual Studio Code and Antigravity IDE in two variants, **Deuterium** (`#0d0d0d` editor background) and **Deuterium Lite** (`#141414`), with a selectable UI accent color. Syntax colors follow Lotus Dark (Classic) for JetBrains IDEs, the same colors as the [Deuterium JetBrains plugin](https://plugins.jetbrains.com/plugin/36393-deuterium).
+Dark color themes for Visual Studio Code in two variants, **Deuterium** (`#0d0d0d` editor background) and **Deuterium Lite** (`#141414`), with a selectable UI accent color. Syntax colors follow Lotus Dark (Classic) for JetBrains IDEs, the same colors as the [Deuterium JetBrains plugin](https://plugins.jetbrains.com/plugin/36393-deuterium).
 
 ---
 
@@ -13,7 +13,7 @@ Install directly through your preferred extension marketplace:
 - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=andreidurlea.deutherium)
 - [Open VSX Registry](https://open-vsx.org/extension/andreidurlea/deutherium)
 
-Alternatively, search for `Deuterium` in the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`) in Visual Studio Code or Antigravity IDE and select **Install**.
+Alternatively, search for `Deuterium` in the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`) in Visual Studio Code and select **Install**.
 
 ---
 
@@ -43,11 +43,11 @@ Alternatively, search for `Deuterium` in the Extensions view (`Ctrl+Shift+X` / `
 
 ## Syntax Colors
 
-Token colors come from Lotus Dark (Classic) by Brian Lai, used under the MIT License (`LICENSE-lotus-theme-jetbrains`). TextMate scopes set the base colors, and semantic tokens separate declarations from calls, parameters from variables, and interfaces from classes.
+Token colors come from Lotus Dark (Classic) by Brian Lai, used under the MIT License (`LICENSE-lotus-theme-jetbrains`), except keywords, which use the upright Deuterium red `#f57385` instead of the italic Lotus `#ff6188`. TextMate scopes set the base colors, and semantic tokens separate declarations from calls, parameters from variables, and interfaces from classes.
 
 | Role | Color | TextMate scope or semantic token |
 | :- | :- | :- |
-| Keyword, modifier, `this`, `true` | `#ff6188` italic | `keyword`, `storage`, `constant.language`, `variable.language` |
+| Keyword, modifier, `this`, `true` | `#f57385` | `keyword`, `storage`, `constant.language`, `variable.language` |
 | String | `#fff48a` | `string` |
 | Number | `#c994ff` | `constant.numeric` |
 | Escape, template expression | `#78dce8` | `constant.character.escape`, `punctuation.definition.template-expression` |

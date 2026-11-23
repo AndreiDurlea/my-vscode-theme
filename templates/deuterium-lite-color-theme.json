@@ -87,7 +87,7 @@
         "punctuation.separator.key-value"
       ],
       "settings": {
-        "foreground": "#ff6188",
+        "foreground": "#f57385",
         "fontStyle": ""
       }
     },
@@ -175,8 +175,8 @@
         "variable.language"
       ],
       "settings": {
-        "foreground": "#ff6188",
-        "fontStyle": "italic"
+        "foreground": "#f57385",
+        "fontStyle": ""
       }
     },
     {
@@ -200,8 +200,8 @@
         "keyword.control.as"
       ],
       "settings": {
-        "foreground": "#ff6188",
-        "fontStyle": "italic"
+        "foreground": "#f57385",
+        "fontStyle": ""
       }
     },
     {
@@ -304,7 +304,7 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#ff6188",
+        "foreground": "#f57385",
         "fontStyle": ""
       }
     },
