@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   release:
@@ -70,10 +71,9 @@ jobs:
           done
 
       - name: Publish to VS Code Marketplace
-        if: steps.release.outputs.should_release == 'true' && env.VSCE_PAT != ''
+        if: steps.release.outputs.should_release == 'true'
         continue-on-error: true
         env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
           VSIX: ${{ steps.release.outputs.artifact }}
         run: |
-          npx -y @vscode/vsce publish -p "$VSCE_PAT" --packagePath "$VSIX"
+          npx -y @vscode/vsce@4 publish --oidc --packagePath "$VSIX"
