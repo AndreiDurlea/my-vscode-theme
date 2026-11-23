@@ -2,7 +2,7 @@
 
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/andreidurlea/deutherium.svg?color=white)](https://open-vsx.org/extension/andreidurlea/deutherium)
 
-Dark color themes for Visual Studio Code and Antigravity IDE in two variants, **Deuterium** (`#0d0d0d` editor background) and **Deuterium Lite** (`#141414`), with a selectable UI accent color. Syntax colors follow Lotus Dark (Classic) for JetBrains IDEs, the same colors as the [Deuterium JetBrains plugin](https://github.com/AndreiDurlea/my-jetbrains-theme).
+Dark color themes for Visual Studio Code and Antigravity IDE in two variants, **Deuterium** (`#0d0d0d` editor background) and **Deuterium Lite** (`#141414`), with a selectable UI accent color. Syntax colors follow Lotus Dark (Classic) for JetBrains IDEs, the same colors as the [Deuterium JetBrains plugin](https://plugins.jetbrains.com/plugin/36393-deuterium).
 
 ---
 

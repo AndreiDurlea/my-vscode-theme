@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.2
+- Link the Deuterium plugin on the JetBrains Marketplace from the README.
+
 ## 1.3.1
 - Set `editor.foreground` to `#939293` so unscoped text, such as Kotlin's `.`, `:` and brackets, uses the punctuation color.
 
