@@ -1,8 +1,18 @@
 import * as fs from "fs";
 import * as path from "path";
 import { DEUTERIUM_TEMPLATE, DEUTERIUM_LITE_TEMPLATE } from "./templates_data";
+import { accentColors, StatusBarColor } from "./uiColors";
 
-export function generateThemes(extensionPath: string, accentHex: string): void {
+export const THEMES = [
+  { label: "Deuterium", file: "deuterium-color-theme.json", template: DEUTERIUM_TEMPLATE },
+  { label: "Deuterium Lite", file: "deuterium-lite-color-theme.json", template: DEUTERIUM_LITE_TEMPLATE }
+] as const;
+
+export function editorBackground(template: string): string {
+  return JSON.parse(template).colors["editor.background"];
+}
+
+export function generateThemes(extensionPath: string, accentHex: string, statusBarColor: StatusBarColor): void {
   const normHex = accentHex.toLowerCase();
 
   const themesDir = path.join(extensionPath, "themes");
@@ -10,19 +20,13 @@ export function generateThemes(extensionPath: string, accentHex: string): void {
     fs.mkdirSync(themesDir, { recursive: true });
   }
 
-  for (const [file, templateStr] of [
-    ["deuterium-color-theme.json", DEUTERIUM_TEMPLATE],
-    ["deuterium-lite-color-theme.json", DEUTERIUM_LITE_TEMPLATE]
-  ] as const) {
+  for (const { file, template } of THEMES) {
     try {
-      const themeObj = JSON.parse(templateStr);
-      themeObj.colors = themeObj.colors || {};
-
-      themeObj.colors["statusBar.noFolderBackground"] = normHex;
-      themeObj.colors["statusBar.background"] = normHex;
-      themeObj.colors["button.background"] = normHex;
-      themeObj.colors["button.hoverBackground"] = normHex;
-      themeObj.colors["progressBar.background"] = normHex;
+      const themeObj = JSON.parse(template);
+      themeObj.colors = {
+        ...(themeObj.colors || {}),
+        ...accentColors(normHex, statusBarColor, editorBackground(template))
+      };
 
       fs.writeFileSync(
         path.join(themesDir, file),

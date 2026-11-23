@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { ACCENT_PRESETS } from "./palette";
-import { generateThemes } from "./generator";
+import { editorBackground, generateThemes, THEMES } from "./generator";
+import { accentColors, StatusBarColor } from "./uiColors";
 
 interface AccentQuickPickItem extends vscode.QuickPickItem {
   id: string;
@@ -31,31 +32,28 @@ function resolveAccentHex(config: vscode.WorkspaceConfiguration): { name: string
   return { name: preset.name, hex: preset.hex };
 }
 
+function getStatusBarColor(): StatusBarColor {
+  return vscode.workspace.getConfiguration("deuterium").get<StatusBarColor>("statusBarColor", "accent") === "background"
+    ? "background"
+    : "accent";
+}
+
 export async function applyLiveUI(hex: string | null): Promise<void> {
   const config = vscode.workspace.getConfiguration();
   const colorCustomizations = config.get<Record<string, any>>("workbench.colorCustomizations") || {};
   const updatedColors = { ...colorCustomizations };
+  const statusBarColor = getStatusBarColor();
 
-  if (!hex) {
-    delete updatedColors["[Deuterium]"];
-    delete updatedColors["[Deuterium Lite]"];
-  } else {
-    const uiAccent = {
-      "statusBar.noFolderBackground": hex,
-      "statusBar.background": hex,
-      "button.background": hex,
-      "button.hoverBackground": hex,
-      "progressBar.background": hex
-    };
-
-    updatedColors["[Deuterium]"] = {
-      ...(updatedColors["[Deuterium]"] || {}),
-      ...uiAccent
-    };
-    updatedColors["[Deuterium Lite]"] = {
-      ...(updatedColors["[Deuterium Lite]"] || {}),
-      ...uiAccent
-    };
+  for (const { label, template } of THEMES) {
+    const key = `[${label}]`;
+    if (!hex) {
+      delete updatedColors[key];
+    } else {
+      updatedColors[key] = {
+        ...(updatedColors[key] || {}),
+        ...accentColors(hex, statusBarColor, editorBackground(template))
+      };
+    }
   }
 
   await config.update(
@@ -168,7 +166,7 @@ export function activate(context: vscode.ExtensionContext): void {
             await applyLiveUI(val);
 
             try {
-              generateThemes(context.extensionPath, val);
+              generateThemes(context.extensionPath, val, getStatusBarColor());
             } catch (_) {}
 
             vscode.window.setStatusBarMessage(`Deuterium: Accent color set to Custom (${val})`, 4000);
@@ -187,7 +185,7 @@ export function activate(context: vscode.ExtensionContext): void {
           await applyLiveUI(selected.hex);
 
           try {
-            generateThemes(context.extensionPath, selected.hex);
+            generateThemes(context.extensionPath, selected.hex, getStatusBarColor());
           } catch (_) {}
 
           vscode.window.setStatusBarMessage(`Deuterium: Accent color set to ${selected.label.replace(" (default)", "")}`, 4000);
@@ -210,7 +208,7 @@ export function activate(context: vscode.ExtensionContext): void {
   });
 
   const configListener = vscode.workspace.onDidChangeConfiguration(async (event) => {
-    if (!event.affectsConfiguration("deuterium.accentColor") && !event.affectsConfiguration("deuterium.customAccentColor")) {
+    if (!["accentColor", "customAccentColor", "statusBarColor"].some((key) => event.affectsConfiguration(`deuterium.${key}`))) {
       return;
     }
 
@@ -218,7 +216,7 @@ export function activate(context: vscode.ExtensionContext): void {
     const { hex } = resolveAccentHex(config);
     await applyLiveUI(hex);
     try {
-      generateThemes(context.extensionPath, hex);
+      generateThemes(context.extensionPath, hex, getStatusBarColor());
     } catch (_) {}
   });
 

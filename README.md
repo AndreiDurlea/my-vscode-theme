@@ -67,7 +67,7 @@ Tokens without a scope use `editor.foreground`, set to the punctuation color `#9
 
 ## Accent Color Customization
 
-The accent color applies to the status bar, buttons and progress bar. Syntax colors do not change with it.
+The accent color applies to the status bar, buttons and progress bar. Syntax colors do not change with it. Status bar and button text is black or white, whichever has the higher contrast with its background.
 
 1. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
 2. Type `Deuterium: Select Accent Color`.
@@ -86,3 +86,9 @@ You can also set your preference directly in `settings.json`:
 ```json
 "deuterium.accentColor": "infrared"
 ```
+
+| Setting | Type | Default | Values |
+| :- | :- | :- | :- |
+| `deuterium.accentColor` | string | `infrared` | `infrared`, `limelight`, `lush`, `silverstone`, `papaya`, `ultraviolet`, `custom` |
+| `deuterium.customAccentColor` | string | `#ff4e32` | `#RRGGBB` or `#RGB`, used when `accentColor` is `custom` |
+| `deuterium.statusBarColor` | string | `accent` | `accent` fills the status bar with the accent color; `background` gives it the editor background color |
