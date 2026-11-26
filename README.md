@@ -56,7 +56,7 @@ Token colors come from Lotus Dark (Classic) by Brian Lai, used under the MIT Lic
 | Class, object, enum, type | `#33f3ff` | `entity.name.type`, `support.class`, semantic `class`, `type` |
 | Interface, type parameter, decorator | `#78dce8` italic | semantic `interface`, `typeParameter`, `decorator` |
 | Function declaration | `#a9dc76` | `entity.name.function.declaration`, semantic `function.declaration`, `method.declaration` |
-| Function call | `#99ffae` | `entity.name.function.call`, semantic `function`, `method` |
+| Function call | `#99ffae` | `entity.name.function.call`, `support.function`, semantic `function`, `method` |
 | Parameter | `#ffcfa8` italic | `variable.parameter`, semantic `parameter` |
 | Variable, property | `#fcfcfa` | `variable`, semantic `variable`, `property` |
 | Operator | `#c0aaff` | `keyword.operator` |

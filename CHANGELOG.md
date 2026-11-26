@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.7
+- Show calls to library functions, such as `free` and `pthread_mutex_lock` in C, upright instead of italic, like other function calls.
+
 ## 1.3.6
 - Run the extension on the local side in remote windows (SSH, WSL, Dev Containers), so the themes apply there without installing the extension on the remote host.
 
