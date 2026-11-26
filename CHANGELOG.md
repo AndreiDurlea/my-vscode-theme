@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.6
+- Run the extension on the local side in remote windows (SSH, WSL, Dev Containers), so the themes apply there without installing the extension on the remote host.
+
 ## 1.3.4
 - Add the `deuterium.statusBarColor` setting. `accent` fills the status bar with the accent color; `background` gives it the editor background color.
 - Show status bar and button text in black or white, whichever contrasts more with its background.

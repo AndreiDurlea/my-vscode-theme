@@ -15,6 +15,8 @@ Install directly through your preferred extension marketplace:
 
 Alternatively, search for `Deuterium` in the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`) in Visual Studio Code and select **Install**.
 
+The extension runs on the local machine, so the themes also apply in remote windows (SSH, WSL, Dev Containers) without installing it on the remote host.
+
 ---
 
 ## Theme Previews

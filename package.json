@@ -6,6 +6,9 @@
   "icon": "images/icon.png",
   "publisher": "andreidurlea",
   "main": "./dist/extension.js",
+  "extensionKind": [
+    "ui"
+  ],
   "activationEvents": [
     "onStartupFinished"
   ],
