@@ -23,9 +23,26 @@ export function contrastText(background: string): string {
   return 1.05 / (l + 0.05) > (l + 0.05) / 0.05 ? WHITE : BLACK;
 }
 
-export function accentColors(accentHex: string, statusBarColor: StatusBarColor, editorBackground: string): Record<string, string> {
-  const statusBar = statusBarColor === "background" ? editorBackground : accentHex;
-  const statusBarText = contrastText(statusBar);
+export interface StatusBarStyle {
+  color: StatusBarColor;
+  textColor?: string;
+}
+
+export interface ThemeBase {
+  background: string;
+  lineNumber: string;
+}
+
+function statusBarTextColor(statusBar: string, style: StatusBarStyle, base: ThemeBase): string {
+  if (style.textColor) {
+    return style.textColor;
+  }
+  return style.color === "background" ? base.lineNumber : contrastText(statusBar);
+}
+
+export function accentColors(accentHex: string, style: StatusBarStyle, base: ThemeBase): Record<string, string> {
+  const statusBar = style.color === "background" ? base.background : accentHex;
+  const statusBarText = statusBarTextColor(statusBar, style, base);
   return {
     "statusBar.background": statusBar,
     "statusBar.noFolderBackground": statusBar,

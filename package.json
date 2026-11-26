@@ -87,10 +87,16 @@
             "background"
           ],
           "enumDescriptions": [
-            "Fill the status bar with the accent color.",
-            "Give the status bar the editor background color."
+            "Fill the status bar with the accent color. Its text is black or white, whichever contrasts more with the accent.",
+            "Give the status bar the editor background color. Its text has the line number color."
           ],
-          "description": "Status bar background. Status bar text is black or white, whichever contrasts more with it."
+          "description": "Status bar background. statusBarTextColor overrides the text color of either option."
+        },
+        "deuterium.statusBarTextColor": {
+          "type": "string",
+          "default": "",
+          "pattern": "^(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))?$",
+          "description": "Status bar text color as #RRGGBB or #RGB. Empty uses the default of statusBarColor: black or white on the accent, the line number color on the editor background."
         }
       }
     },

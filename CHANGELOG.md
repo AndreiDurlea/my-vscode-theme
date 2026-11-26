@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.8
+- Color status bar text with the line number color when `deuterium.statusBarColor` is `background`, instead of black or white.
+- Add the `deuterium.statusBarTextColor` setting, which sets the status bar text color for either `statusBarColor` option.
+
 ## 1.3.7
 - Show calls to library functions, such as `free` and `pthread_mutex_lock` in C, upright instead of italic, like other function calls.
 

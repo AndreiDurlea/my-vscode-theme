@@ -1,18 +1,19 @@
 import * as fs from "fs";
 import * as path from "path";
 import { DEUTERIUM_TEMPLATE, DEUTERIUM_LITE_TEMPLATE } from "./templates_data";
-import { accentColors, StatusBarColor } from "./uiColors";
+import { accentColors, StatusBarStyle, ThemeBase } from "./uiColors";
 
 export const THEMES = [
   { label: "Deuterium", file: "deuterium-color-theme.json", template: DEUTERIUM_TEMPLATE },
   { label: "Deuterium Lite", file: "deuterium-lite-color-theme.json", template: DEUTERIUM_LITE_TEMPLATE }
 ] as const;
 
-export function editorBackground(template: string): string {
-  return JSON.parse(template).colors["editor.background"];
+export function themeBase(template: string): ThemeBase {
+  const colors = JSON.parse(template).colors;
+  return { background: colors["editor.background"], lineNumber: colors["editorLineNumber.foreground"] };
 }
 
-export function generateThemes(extensionPath: string, accentHex: string, statusBarColor: StatusBarColor): void {
+export function generateThemes(extensionPath: string, accentHex: string, statusBarStyle: StatusBarStyle): void {
   const normHex = accentHex.toLowerCase();
 
   const themesDir = path.join(extensionPath, "themes");
@@ -25,7 +26,7 @@ export function generateThemes(extensionPath: string, accentHex: string, statusB
       const themeObj = JSON.parse(template);
       themeObj.colors = {
         ...(themeObj.colors || {}),
-        ...accentColors(normHex, statusBarColor, editorBackground(template))
+        ...accentColors(normHex, statusBarStyle, themeBase(template))
       };
 
       fs.writeFileSync(
